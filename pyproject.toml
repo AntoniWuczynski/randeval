@@ -1,0 +1,69 @@
+[project]
+name = "randeval"
+version = "0.1.0"
+description = "A Python package for generating and evaluating random number sequences"
+readme = "README.md"
+authors = [
+    { name = "AntoniWuczynski", email = "antoni.wuczynski@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "scipy",
+    "cryptography",
+]
+
+[project.optional-dependencies]
+quantum = [
+    "qiskit",
+    "qiskit-ibm-runtime",
+    "python-dotenv",
+]
+extractors = [
+    "cryptomite",
+]
+rendering = [
+    "mitsuba>=3.8.0",
+    "flip-evaluator",
+]
+dev = [
+    "pytest",
+    "mypy",
+    "nistrng>=1.2.3",
+    "types-requests",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src"]
+exclude = ['/mitsuba/']
+
+[[tool.mypy.overrides]]
+module = [
+    "cryptomite",
+    "cryptomite.*",
+    "qiskit",
+    "qiskit.*",
+    "qiskit_ibm_runtime",
+    "dotenv",
+    "cpuid",
+    "rdrand",
+    "sounddevice",
+    "cv2",
+    "flip_evaluator",
+    "scipy",
+    "scipy.*",
+    "pandas",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["mitsuba", "mitsuba.*"]
+ignore_missing_imports = true
+follow_imports = "skip"
+follow_imports_for_stubs = true
